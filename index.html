@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JokerCoin - The Most Fun Crypto in the Universe</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							jokerPurple: '#6a0dad',
+							jokerGreen: '#00ff9d',
+							jokerRed: '#ff3860',
+							jokerYellow: '#ffe100',
+							darkBg: '#0f0f1a',
+						},
+						fontFamily: {
+							grotesk: ['"Space Grotesk"', 'sans-serif'],
+							clown: ['"Bungee"', 'cursive'],
+						},
+						animation: {
+							'spin-slow': 'spin 3s linear infinite',
+							float: 'float 6s ease-in-out infinite',
+							'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0)' },
+								'50%': { transform: 'translateY(-20px)' },
+							},
+						},
+					},
+				},
+			}
+		</script>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+			body {
+				font-family: 'Space Grotesk', sans-serif;
+				background-color: #0f0f1a;
+				color: white;
+				overflow-x: hidden;
+			}
+
+			.clown-font {
+				font-family: 'Bungee', cursive;
+			}
+
+			.gradient-text {
+				background: linear-gradient(90deg, #6a0dad, #00ff9d, #ffe100);
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+			}
+
+			.joker-card {
+				background: rgba(106, 13, 173, 0.15);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(106, 13, 173, 0.5);
+				transition: all 0.3s ease;
+			}
+
+			.joker-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 10px 25px rgba(106, 13, 173, 0.5);
+			}
+
+			.token-graphic {
+				position: relative;
+				width: 200px;
+				height: 200px;
+			}
+
+			.token-graphic .face {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				backface-visibility: hidden;
+				transition: transform 1s;
+			}
+
+			.token-graphic .front {
+				background: linear-gradient(135deg, #6a0dad, #ff3860);
+				transform: perspective(500px) rotateY(0deg);
+			}
+
+			.token-graphic .back {
+				background: linear-gradient(135deg, #00ff9d, #ffe100);
+				transform: perspective(500px) rotateY(180deg);
+			}
+
+			.token-graphic:hover .front {
+				transform: perspective(500px) rotateY(180deg);
+			}
+
+			.token-graphic:hover .back {
+				transform: perspective(500px) rotateY(360deg);
+			}
+
+			.roadmap-item::before {
+				content: '';
+				position: absolute;
+				left: -20px;
+				top: 0;
+				width: 40px;
+				height: 40px;
+				background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236a0dad'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E")
+					no-repeat center center;
+				background-size: contain;
+			}
+
+			.glow {
+				box-shadow: 0 0 20px rgba(106, 13, 173, 0.7);
+			}
+
+			.glow:hover {
+				box-shadow: 0 0 30px rgba(106, 13, 173, 1);
+			}
+
+			@media (max-width: 768px) {
+				.roadmap-item::before {
+					left: -15px;
+					width: 30px;
+					height: 30px;
+				}
+			}
+		</style>
+	</head>
+	<>
+		<!-- Navigation -->
+		<nav
+			class="fixed w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-jokerPurple/30"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between h-16 items-center">
+					<div class="flex items-center">
+						<div class="flex-shrink-0 flex items-center">
+							<div
+								class="w-10 h-10 rounded-full bg-gradient-to-br from-jokerPurple to-jokerGreen flex items-center justify-center"
+							>
+								<i class="fas fa-laugh-squint text-white text-xl"></i>
+							</div>
+							<span class="ml-3 text-2xl clown-font gradient-text"
+								>JokerCoin</span
+							>
+						</div>
+					</div>
+					<div class="hidden md:block">
+						<div class="ml-10 flex items-center space-x-4">
+							<a
+								href="#about"
+								class="text-white hover:text-jokerGreen px-3 py-2 rounded-md text-sm font-medium transition"
+								>About</a
+							>
+							<a
+								href="#tokenomics"
+								class="text-white hover:text-jokerGreen px-3 py-2 rounded-md text-sm font-medium transition"
+								>Tokenomics</a
+							>
+							<a
+								href="#roadmap"
+								class="text-white hover:text-jokerGreen px-3 py-2 rounded-md text-sm font-medium transition"
+								>Roadmap</a
+							>
+							<a
+								href="#buy"
+								class="text-white hover:text-jokerGreen px-3 py-2 rounded-md text-sm font-medium transition"
+								>How to Buy</a
+							>
+							<a
+								href="#community"
+								class="text-white hover:text-jokerGreen px-3 py-2 rounded-md text-sm font-medium transition"
+								>Community</a
+							>
+							<button
+								class="ml-4 bg-gradient-to-r from-jokerPurple to-jokerGreen text-white px-6 py-2 rounded-full text-sm font-bold hover:opacity-90 transition glow"
+							>
+								Buy Now
+							</button>
+						</div>
+					</div>
+					<div class="md:hidden">
+						<button
+							id="mobile-menu-button"
+							class="text-white focus:outline-none"
+						>
+							<i class="fas fa-bars text-xl"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mobile menu -->
+			<div
+				id="mobile-menu"
+				class="hidden md:hidden bg-darkBg border-t border-jokerPurple/30"
+			>
+				<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+					<a
+						href="#about"
+						class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-jokerPurple/20"
+						>About</a
+					>
+					<a
+						href="#tokenomics"
+						class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-jokerPurple/20"
+						>Tokenomics</a
+					>
+					<a
+						href="#roadmap"
+						class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-jokerPurple/20"
+						>Roadmap</a
+					>
+					<a
+						href="#buy"
+						class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-jokerPurple/20"
+						>How to Buy</a
+					>
+					<a
+						href="#community"
+						class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-jokerPurple/20"
+						>Community</a
+					>
+					<button
+						class="w-full bg-gradient-to-r from-jokerPurple to-jokerGreen text-white px-6 py-3 rounded-full text-base font-bold mt-2 glow"
+					>
+						Buy Now
+					</button>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Hero Section -->
+		<section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+			<div class="flex flex-col md:flex-row items-center justify-between">
+				<div class="md:w-1/2 mb-10 md:mb-0">
+					<h1 class="text-4xl md:text-6xl font-bold mb-6 clown-font">
+						<span class="gradient-text">JokerCoin</span> <br />
+						<span class="text-white">The Funniest Crypto</span>
+					</h1>
+					<p class="text-lg text-gray-300 mb-8">
+						A revolutionary meme coin with real utility, bringing laughter and
+						profits to the blockchain. Join the circus and be part of the most
+						entertaining crypto community!
+					</p>
+					<div class="flex flex-wrap gap-4">
+						<button
+							class="bg-gradient-to-r from-jokerPurple to-jokerGreen text-white px-8 py-3 rounded-full text-lg font-bold hover:opacity-90 transition glow"
+						>
+							Buy $JOKER
+						</button>
+						<button
+							class="border-2 border-jokerGreen text-jokerGreen px-8 py-3 rounded-full text-lg font-bold hover:bg-jokerGreen/10 transition"
+						>
+							Whitepaper
+						</button>
+					</div>
+					<div class="mt-8 flex items-center space-x-4">
+						<div class="flex -space-x-2">
+							<img
+								class="w-10 h-10 rounded-full border-2 border-jokerPurple"
+								src="https://randomuser.me/api/portraits/women/1.jpg"
+								alt=""
+							/>
+							<img
+								class="w-10 h-10 rounded-full border-2 border-jokerPurple"
+								src="https://randomuser.me/api/portraits/men/1.jpg"
+								alt=""
+							/>
+							<img
+								class="w-10 h-10 rounded-full border-2 border-jokerPurple"
+								src="https://randomuser.me/api/portraits/women/2.jpg"
+								alt=""
+							/>
+						</div>
+						<div>
+							<p class="text-sm text-gray-400">
+								Join our <span class="text-jokerGreen">10,000+</span> happy
+								holders
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="md:w-1/2 flex justify-center">
+					<div class="token-graphic relative float">
+						<div class="face front">
+							<i class="fas fa-grin-tongue-wink text-white text-8xl"></i>
+						</div>
+						<div class="face back">
+							<i class="fas fa-grin-tongue-squint text-white text-8xl"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stats Section -->
+		<section class="py-12 bg-gradient-to-b from-darkBg to-jokerPurple/10">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+					<div class="joker-card p-6 rounded-xl">
+						<div class="text-4xl font-bold text-jokerGreen mb-2">$0.0001</div>
+						<div class="text-gray-400">Current Price</div>
+					</div>
+					<div class="joker-card p-6 rounded-xl">
+						<div class="text-4xl font-bold text-jokerYellow mb-2">10M+</div>
+						<div class="text-gray-400">Total Supply</div>
+					</div>
+					<div class="joker-card p-6 rounded-xl">
+						<div class="text-4xl font-bold text-jokerRed mb-2">5,000+</div>
+						<div class="text-gray-400">Holders</div>
+					</div>
+					<div class="joker-card p-6 rounded-xl">
+						<div class="text-4xl font-bold text-jokerGreen mb-2">$1M</div>
+						<div class="text-gray-400">Market Cap</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- About Section -->
+		<section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+					<span class="gradient-text">Why JokerCoin?</span>
+				</h2>
+				<p class="text-xl text-gray-400 max-w-3xl mx-auto">
+					We're not just another meme coin - we're building an ecosystem of fun,
+					games, and real utility.
+				</p>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-8">
+				<div class="joker-card p-8 rounded-xl">
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mb-6"
+					>
+						<i class="fas fa-laugh-beam text-jokerGreen text-2xl"></i>
+					</div>
+					<h3 class="text-xl font-bold text-white mb-3">Community Driven</h3>
+					<p class="text-gray-400">
+						Our community is at the heart of everything we do. Vote on
+						proposals, suggest features, and help shape the future of JokerCoin.
+					</p>
+				</div>
+				<div class="joker-card p-8 rounded-xl">
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mb-6"
+					>
+						<i class="fas fa-lock text-jokerYellow text-2xl"></i>
+					</div>
+					<h3 class="text-xl font-bold text-white mb-3">Secure & Audited</h3>
+					<p class="text-gray-400">
+						Contract audited by leading blockchain security firms. Liquidity
+						locked and ownership renounced for your peace of mind.
+					</p>
+				</div>
+				<div class="joker-card p-8 rounded-xl">
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mb-6"
+					>
+						<i class="fas fa-gamepad text-jokerRed text-2xl"></i>
+					</div>
+					<h3 class="text-xl font-bold text-white mb-3">Play to Earn</h3>
+					<p class="text-gray-400">
+						Coming soon - our exclusive Joker Arcade with play-to-earn games
+						where you can win JokerCoin prizes!
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Tokenomics Section -->
+		<section
+			id="tokenomics"
+			class="py-20 bg-gradient-to-b from-jokerPurple/10 to-darkBg"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+						<span class="gradient-text">Tokenomics</span>
+					</h2>
+					<p class="text-xl text-gray-400 max-w-3xl mx-auto">
+						Carefully designed for sustainability and growth
+					</p>
+				</div>
+
+				<div class="flex flex-col md:flex-row items-center gap-12">
+					<div class="md:w-1/2">
+						<div class="relative w-full max-w-md mx-auto">
+							<div class="pie-chart relative w-full h-96">
+								<!-- Pie chart segments -->
+								<div
+									class="absolute inset-0 rounded-full border-8 border-jokerPurple/30"
+								>
+									<div
+										class="absolute inset-0 rounded-full"
+										style="
+											clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
+											background: #6a0dad;
+										"
+									></div>
+									<div
+										class="absolute inset-0 rounded-full"
+										style="
+											clip-path: polygon(
+												50% 50%,
+												100% 50%,
+												100% 100%,
+												50% 100%
+											);
+											background: #00ff9d;
+										"
+									></div>
+									<div
+										class="absolute inset-0 rounded-full"
+										style="
+											clip-path: polygon(50% 50%, 50% 100%, 0% 100%, 0% 50%);
+											background: #ff3860;
+										"
+									></div>
+									<div
+										class="absolute inset-0 rounded-full"
+										style="
+											clip-path: polygon(50% 50%, 0% 50%, 0% 0%, 50% 0%);
+											background: #ffe100;
+										"
+									></div>
+								</div>
+								<div class="absolute inset-0 flex items-center justify-center">
+									<div
+										class="w-32 h-32 rounded-full bg-darkBg flex items-center justify-center"
+									>
+										<span class="text-2xl font-bold gradient-text">10B</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="md:w-1/2">
+						<div class="space-y-6">
+							<div class="flex items-start">
+								<div
+									class="w-4 h-4 rounded-full bg-jokerPurple mt-1 mr-3"
+								></div>
+								<div>
+									<h4 class="text-lg font-bold text-white">40% Presale</h4>
+									<p class="text-gray-400">
+										Available at launch with special bonuses for early investors
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<div class="w-4 h-4 rounded-full bg-jokerGreen mt-1 mr-3"></div>
+								<div>
+									<h4 class="text-lg font-bold text-white">30% Liquidity</h4>
+									<p class="text-gray-400">
+										Locked for 2 years to ensure stable trading
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<div class="w-4 h-4 rounded-full bg-jokerRed mt-1 mr-3"></div>
+								<div>
+									<h4 class="text-lg font-bold text-white">20% Marketing</h4>
+									<p class="text-gray-400">
+										For exchanges listings, partnerships, and promotions
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<div
+									class="w-4 h-4 rounded-full bg-jokerYellow mt-1 mr-3"
+								></div>
+								<div>
+									<h4 class="text-lg font-bold text-white">10% Team</h4>
+									<p class="text-gray-400">
+										Vested over 12 months for continued development
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-12 joker-card p-6 rounded-xl">
+							<h3 class="text-xl font-bold text-white mb-4">
+								Transaction Taxes
+							</h3>
+							<div class="grid grid-cols-2 gap-4">
+								<div>
+									<div class="text-jokerGreen text-2xl font-bold">5%</div>
+									<div class="text-gray-400">Buy Tax</div>
+								</div>
+								<div>
+									<div class="text-jokerRed text-2xl font-bold">7%</div>
+									<div class="text-gray-400">Sell Tax</div>
+								</div>
+							</div>
+							<p class="text-sm text-gray-500 mt-4">
+								Taxes fund marketing, development, and rewards for holders
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Roadmap Section -->
+		<section id="roadmap" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+					<span class="gradient-text">Our Roadmap</span>
+				</h2>
+				<p class="text-xl text-gray-400 max-w-3xl mx-auto">
+					The exciting journey ahead for JokerCoin
+				</p>
+			</div>
+
+			<div class="relative">
+				<!-- Timeline line -->
+				<div
+					class="hidden md:block absolute left-1/2 h-full w-1 bg-gradient-to-b from-jokerPurple to-jokerGreen"
+				></div>
+
+				<div class="space-y-12 md:space-y-0">
+					<!-- Phase 1 -->
+					<div class="relative md:flex justify-between items-center">
+						<div class="md:w-5/12 mb-8 md:mb-0 md:pr-8 text-right">
+							<div class="joker-card p-6 rounded-xl">
+								<div class="text-jokerPurple font-bold mb-2">
+									PHASE 1 - Q2 2023
+								</div>
+								<h3 class="text-xl font-bold text-white mb-3">
+									Launch & Foundation
+								</h3>
+								<ul class="text-gray-400 space-y-2">
+									<li class="flex items-start">
+										<i
+											class="fas fa-check-circle text-jokerGreen mt-1 mr-2"
+										></i>
+										<span>Token creation and smart contract deployment</span>
+									</li>
+									<li class="flex items-start">
+										<i
+											class="fas fa-check-circle text-jokerGreen mt-1 mr-2"
+										></i>
+										<span>Presale and PancakeSwap listing</span>
+									</li>
+									<li class="flex items-start">
+										<i
+											class="fas fa-check-circle text-jokerGreen mt-1 mr-2"
+										></i>
+										<span>First marketing campaigns</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="hidden md:block w-2/12 flex justify-center">
+							<div
+								class="w-8 h-8 rounded-full bg-jokerPurple flex items-center justify-center glow"
+							>
+								<i class="fas fa-check text-white"></i>
+							</div>
+						</div>
+						<div class="md:w-5/12"></div>
+					</div>
+
+					<!-- Phase 2 -->
+					<div class="relative md:flex justify-between items-center">
+						<div class="md:w-5/12"></div>
+						<div class="hidden md:block w-2/12 flex justify-center">
+							<div
+								class="w-8 h-8 rounded-full bg-jokerGreen flex items-center justify-center glow"
+							>
+								<div
+									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-jokerGreen opacity-75"
+								></div>
+								<span class="relative">2</span>
+							</div>
+						</div>
+						<div class="md:w-5/12 md:pl-8">
+							<div class="joker-card p-6 rounded-xl">
+								<div class="text-jokerGreen font-bold mb-2">
+									PHASE 2 - Q3 2023
+								</div>
+								<h3 class="text-xl font-bold text-white mb-3">
+									Growth & Community
+								</h3>
+								<ul class="text-gray-400 space-y-2">
+									<li class="flex items-start">
+										<i
+											class="fas fa-spinner text-jokerYellow mt-1 mr-2 animate-spin"
+										></i>
+										<span>CEX listings on 2-3 exchanges</span>
+									</li>
+									<li class="flex items-start">
+										<i
+											class="fas fa-spinner text-jokerYellow mt-1 mr-2 animate-spin"
+										></i>
+										<span>Community NFT airdrops</span>
+									</li>
+									<li class="flex items-start">
+										<i
+											class="fas fa-spinner text-jokerYellow mt-1 mr-2 animate-spin"
+										></i>
+										<span>Partnership announcements</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- Phase 3 -->
+					<div class="relative md:flex justify-between items-center">
+						<div class="md:w-5/12 mb-8 md:mb-0 md:pr-8 text-right">
+							<div class="joker-card p-6 rounded-xl">
+								<div class="text-jokerYellow font-bold mb-2">
+									PHASE 3 - Q4 2023
+								</div>
+								<h3 class="text-xl font-bold text-white mb-3">
+									Utility & Ecosystem
+								</h3>
+								<ul class="text-gray-400 space-y-2">
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Joker Arcade beta launch</span>
+									</li>
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Staking platform release</span>
+									</li>
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Merchandise store</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="hidden md:block w-2/12 flex justify-center">
+							<div
+								class="w-8 h-8 rounded-full bg-jokerYellow flex items-center justify-center glow"
+							>
+								<span>3</span>
+							</div>
+						</div>
+						<div class="md:w-5/12"></div>
+					</div>
+
+					<!-- Phase 4 -->
+					<div class="relative md:flex justify-between items-center">
+						<div class="md:w-5/12"></div>
+						<div class="hidden md:block w-2/12 flex justify-center">
+							<div
+								class="w-8 h-8 rounded-full bg-jokerRed flex items-center justify-center glow"
+							>
+								<span>4</span>
+							</div>
+						</div>
+						<div class="md:w-5/12 md:pl-8">
+							<div class="joker-card p-6 rounded-xl">
+								<div class="text-jokerRed font-bold mb-2">PHASE 4 - 2024</div>
+								<h3 class="text-xl font-bold text-white mb-3">
+									Expansion & Beyond
+								</h3>
+								<ul class="text-gray-400 space-y-2">
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Major exchange listings</span>
+									</li>
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Joker Metaverse development</span>
+									</li>
+									<li class="flex items-start">
+										<i class="far fa-clock text-jokerPurple mt-1 mr-2"></i>
+										<span>Charity initiatives</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- How to Buy Section -->
+		<section
+			id="buy"
+			class="py-20 bg-gradient-to-b from-darkBg to-jokerPurple/10"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+						<span class="gradient-text">How to Buy</span>
+					</h2>
+					<p class="text-xl text-gray-400 max-w-3xl mx-auto">
+						Get your JokerCoins in just a few simple steps
+					</p>
+				</div>
+
+				<div class="grid md:grid-cols-3 gap-8 mb-12">
+					<div class="joker-card p-8 rounded-xl text-center">
+						<div
+							class="w-20 h-20 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-6"
+						>
+							<span class="text-2xl font-bold text-jokerGreen">1</span>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Get a Wallet</h3>
+						<p class="text-gray-400">
+							Download and set up MetaMask or Trust Wallet on your device.
+						</p>
+					</div>
+					<div class="joker-card p-8 rounded-xl text-center">
+						<div
+							class="w-20 h-20 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-6"
+						>
+							<span class="text-2xl font-bold text-jokerGreen">2</span>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Get BNB</h3>
+						<p class="text-gray-400">
+							Buy BNB on an exchange and send it to your wallet, or buy directly
+							with your card.
+						</p>
+					</div>
+					<div class="joker-card p-8 rounded-xl text-center">
+						<div
+							class="w-20 h-20 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-6"
+						>
+							<span class="text-2xl font-bold text-jokerGreen">3</span>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Swap to Joker</h3>
+						<p class="text-gray-400">
+							Connect to PancakeSwap, paste our contract address, set slippage
+							to 7%, and swap!
+						</p>
+					</div>
+				</div>
+
+				<div class="text-center">
+					<button
+						class="bg-gradient-to-r from-jokerPurple to-jokerGreen text-white px-8 py-4 rounded-full text-lg font-bold hover:opacity-90 transition glow mb-6"
+					>
+						Buy $JOKER Now
+					</button>
+					<p class="text-gray-400">
+						Contract address:
+						<span class="text-jokerGreen font-mono"
+							>8Ys5HLvaKwQBFahUep6rUptecew2u8zwuEweM357pump</span
+						>
+						<button
+							class="ml-2 text-jokerYellow"
+							onclick="copyToClipboard('0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7')"
+						>
+							<i class="far fa-copy"></i>
+						</button>
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Community Section -->
+		<section
+			id="community"
+			class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+		>
+			<div class="text-center mb-16">
+				<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+					<span class="gradient-text">Join Our Community</span>
+				</h2>
+				<p class="text-xl text-gray-400 max-w-3xl mx-auto">
+					The fun is just getting started! Connect with us on social media.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+				<a
+					href="#"
+					class="joker-card p-6 rounded-xl text-center hover:bg-jokerPurple/30 transition"
+				>
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-4"
+					>
+						<i class="fab fa-telegram text-jokerGreen text-2xl"></i>
+					</div>
+					<h3 class="text-lg font-bold text-white mb-2">Telegram</h3>
+					<p class="text-gray-400 text-sm">Join our active community</p>
+				</a>
+				<a
+					href="#"
+					class="joker-card p-6 rounded-xl text-center hover:bg-jokerPurple/30 transition"
+				>
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-4"
+					>
+						<i class="fab fa-twitter text-jokerGreen text-2xl"></i>
+					</div>
+					<h3 class="text-lg font-bold text-white mb-2">Twitter</h3>
+					<p class="text-gray-400 text-sm">Latest news and memes</p>
+				</a>
+				<a
+					href="#"
+					class="joker-card p-6 rounded-xl text-center hover:bg-jokerPurple/30 transition"
+				>
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-4"
+					>
+						<i class="fab fa-discord text-jokerGreen text-2xl"></i>
+					</div>
+					<h3 class="text-lg font-bold text-white mb-2">Discord</h3>
+					<p class="text-gray-400 text-sm">Chat and get support</p>
+				</a>
+				<a
+					href="#"
+					class="joker-card p-6 rounded-xl text-center hover:bg-jokerPurple/30 transition"
+				>
+					<div
+						class="w-16 h-16 rounded-full bg-jokerPurple/20 flex items-center justify-center mx-auto mb-4"
+					>
+						<i class="fab fa-medium text-jokerGreen text-2xl"></i>
+					</div>
+					<h3 class="text-lg font-bold text-white mb-2">Medium</h3>
+					<p class="text-gray-400 text-sm">In-depth articles</p>
+				</a>
+			</div>
+		</section>
+
+		<!-- FAQ Section -->
+		<section class="py-20 bg-gradient-to-b from-jokerPurple/10 to-darkBg">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-5xl font-bold clown-font mb-4">
+						<span class="gradient-text">Frequently Asked Questions</span>
+					</h2>
+				</div>
+
+				<div class="max-w-3xl mx-auto">
+					<div class="space-y-4">
+						<div class="joker-card p-6 rounded-xl">
+							<button
+								class="faq-toggle w-full flex justify-between items-center text-left"
+							>
+								<h3 class="text-lg font-bold text-white">What is JokerCoin?</h3>
+								<i
+									class="fas fa-chevron-down text-jokerGreen transition-transform"
+								></i>
+							</button>
+							<div class="faq-content mt-3 hidden">
+								<p class="text-gray-400">
+									JokerCoin is a fun, community-driven cryptocurrency with real
+									utility. While we embrace the meme culture, we're also
+									building actual use cases including gaming, NFTs, and more.
+								</p>
+							</div>
+						</div>
+
+						<div class="joker-card p-6 rounded-xl">
+							<button
+								class="faq-toggle w-full flex justify-between items-center text-left"
+							>
+								<h3 class="text-lg font-bold text-white">Is JokerCoin safe?</h3>
+								<i
+									class="fas fa-chevron-down text-jokerGreen transition-transform"
+								></i>
+							</button>
+							<div class="faq-content mt-3 hidden">
+								<p class="text-gray-400">
+									Yes! Our contract has been audited by a reputable blockchain
+									security firm. Liquidity is locked for 2 years, and ownership
+									has been renounced, meaning no one can modify the contract.
+								</p>
+							</div>
+						</div>
+
+						<div class="joker-card p-6 rounded-xl">
+							<button
+								class="faq-toggle w-full flex justify-between items-center text-left"
+							>
+								<h3 class="text-lg font-bold text-white">
+									Where can I buy JokerCoin?
+								</h3>
+								<i
+									class="fas fa-chevron-down text-jokerGreen transition-transform"
+								></i>
+							</button>
+							<div class="faq-content mt-3 hidden">
+								<p class="text-gray-400">
+									Currently available on PancakeSwap. We're working on getting
+									listed on centralized exchanges soon. Check our "How to Buy"
+									section for detailed instructions.
+								</p>
+							</div>
+						</div>
+
+						<div class="joker-card p-6 rounded-xl">
+							<button
+								class="faq-toggle w-full flex justify-between items-center text-left"
+							>
+								<h3 class="text-lg font-bold text-white">
+									What's the tax for?
+								</h3>
+								<i
+									class="fas fa-chevron-down text-jokerGreen transition-transform"
+								></i>
+							</button>
+							<div class="faq-content mt-3 hidden">
+								<p class="text-gray-400">
+									The 5% buy tax and 7% sell tax fund marketing, development,
+									exchange listings, and rewards for long-term holders. This
+									helps sustain and grow the project.
+								</p>
+							</div>
+						</div>
+
+						<div class="joker-card p-6 rounded-xl">
+							<button
+								class="faq-toggle w-full flex justify-between items-center text-left"
+							>
+								<h3 class="text-lg font-bold text-white">
+									When will staking be available?
+								</h3>
+								<i
+									class="fas fa-chevron-down text-jokerGreen transition-transform"
+								></i>
+							</button>
+							<div class="faq-content mt-3 hidden">
+								<p class="text-gray-400">
+									Staking is planned for Q4 2023 as part of our roadmap. Follow
+									our announcements for exact dates and details about APY and
+									lock-up periods.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="py-20 relative overflow-hidden">
+			<div class="absolute inset-0 z-0">
+				<div
+					class="absolute inset-0 bg-gradient-to-br from-jokerPurple/20 to-jokerGreen/20"
+				></div>
+				<div
+					class="absolute top-0 left-0 w-64 h-64 rounded-full bg-jokerPurple/30 blur-3xl"
+				></div>
+				<div
+					class="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-jokerGreen/30 blur-3xl"
+				></div>
+			</div>
+
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+				<div
+					class="joker-card p-8 md:p-12 rounded-2xl text-center bg-darkBg/80 backdrop-blur-md"
+				>
+					<h2 class="text-3xl md:text-5xl font-bold clown-font mb-6">
+						<span class="gradient-text">Ready to Join the Circus?</span>
+					</h2>
+					<p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+						Don't miss your chance to be part of the funniest revolution in
+						crypto. Buy JokerCoin today and let the good times roll!
+					</p>
+					<div class="flex flex-wrap justify-center gap-4">
+						<button
+							class="bg-gradient-to-r from-jokerPurple to-jokerGreen text-white px-8 py-4 rounded-full text-lg font-bold hover:opacity-90 transition glow"
+						>
+							Buy $JOKER Now
+						</button>
+						<button
+							class="border-2 border-jokerGreen text-jokerGreen px-8 py-4 rounded-full text-lg font-bold hover:bg-jokerGreen/10 transition"
+						>
+							Join Telegram
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer class="py-12 border-t border-jokerPurple/30">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex flex-col md:flex-row justify-between items-center">
+					<div class="flex items-center mb-6 md:mb-0">
+						<div
+							class="w-10 h-10 rounded-full bg-gradient-to-br from-jokerPurple to-jokerGreen flex items-center justify-center"
+						>
+							<i class="fas fa-laugh-squint text-white text-xl"></i>
+						</div>
+						<span class="ml-3 text-2xl clown-font gradient-text"
+							>JokerCoin</span
+						>
+					</div>
+
+					<div class="flex space-x-6 mb-6 md:mb-0">
+						<a href="#" class="text-gray-400 hover:text-jokerGreen transition">
+							<i class="fab fa-telegram text-xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-jokerGreen transition">
+							<i class="fab fa-twitter text-xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-jokerGreen transition">
+							<i class="fab fa-discord text-xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-jokerGreen transition">
+							<i class="fab fa-medium text-xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-jokerGreen transition">
+							<i class="fab fa-github text-xl"></i>
+						</a>
+					</div>
+
+					<div class="text-gray-500 text-sm">
+						&copy; 2023 JokerCoin. All rights reserved.
+					</div>
+				</div>
+
+				<div
+					class="mt-8 pt-8 border-t border-jokerPurple/10 text-center text-gray-500 text-sm"
+				>
+					<p class="mb-2">
+						Disclaimer: JokerCoin is a meme coin with no intrinsic value or
+						expectation of financial return. There is no formal team or roadmap.
+						The coin is completely useless and for entertainment purposes only.
+					</p>
+					<p>Always do your own research and invest responsibly.</p>
+				</div>
+			</div>
+		</footer>
+
+		<script type="module" src="./script.js" defer></script>
+	</body>
+</html>
